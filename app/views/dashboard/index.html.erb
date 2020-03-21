@@ -1,0 +1,5 @@
+<h1>Selecione seu repositório</h1>
+<%= form_with(url: new_post_path, method: :get) do %>
+  <%= render partial: 'select_repo', locals: { repos: @user.repos } %>
+  <%= submit_tag 'Escrever' %>
+<% end %>

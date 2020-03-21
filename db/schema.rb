@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_21_035305) do
+ActiveRecord::Schema.define(version: 2020_03_21_075705) do
+
+  create_table "posts", force: :cascade do |t|
+    t.string "commit_sha"
+    t.string "commit_message", null: false
+    t.text "content"
+    t.string "title", null: false
+    t.string "filename"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
