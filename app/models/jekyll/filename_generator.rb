@@ -1,11 +1,13 @@
 module Jekyll
   class FilenameGenerator
+    ROOT_DIRECTORY = '_posts'
+
     def initialize(title)
       @title = title
     end
 
     def call
-      "#{time.year}-#{time.month}-#{time.day}-#{title.downcase.tr(' ', '-')}.md"
+      "#{ROOT_DIRECTORY}/#{time.year}-#{time.month}-#{time.day}-#{title.downcase.tr(' ', '-')}.md"
     end
 
     private
