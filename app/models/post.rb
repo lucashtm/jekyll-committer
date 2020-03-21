@@ -8,6 +8,7 @@ class Post < ApplicationRecord
 
   before_validation :set_filename
   before_validation :set_commit_message
+  before_validation :modify_content
 
   delegate :user, to: :blog
   def set_filename
@@ -18,5 +19,10 @@ class Post < ApplicationRecord
   def set_commit_message
     return if commit_message.present?
     self.commit_message = Jekyll::FilenameGenerator.new(title).call
+  end
+
+  def modify_content
+    return if content.blank?
+    self.content = Posts::Content.new(self).call
   end
 end

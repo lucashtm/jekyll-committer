@@ -1,0 +1,12 @@
+#!/bin/bash
+cd /home/ec2-user/odin
+source /etc/profile.d/rvm.sh
+
+rvm use 2.6.3
+
+if lsof -t -i:80 > /dev/null
+then
+        kill $(lsof -t -i:80)
+else
+        echo Nothing running on port 80
+fi

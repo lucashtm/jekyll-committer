@@ -1,0 +1,4 @@
+export RAILS_ENV=production
+export WEB_CONCURRENCY=20
+export RAILS_SERVE_STATIC_FILES=true
+bundle exec puma -e production -p 80 --pidfile tmp/puma.pid -d
