@@ -1,5 +1,8 @@
 module Github
   class Client
+
+    delegate_missing_to :client
+
     def initialize(repo, branch, oauth_token: nil)
       @repo = repo
       @branch = branch
