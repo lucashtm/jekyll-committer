@@ -1,0 +1,56 @@
+<%= stylesheet_link_tag 'post_edit' %>
+
+<h1>
+  New <%= @blog.name %> Post
+</h1>
+
+<%= form_with model: @post do |f| %>
+  <%= f.hidden_field :blog_id, value: @blog.id %>
+  <%= f.text_field :title, class: 'form-control title-input', placeholder: 'Title' %>
+  <div id="toolbar">
+  </div>
+  <div id="editor">
+  </div>
+  <textarea name="post[content]" id="hidden-content"></textarea>
+  <%= f.submit 'Publish', class: 'btn btn-success btn-lg post-publish-submit', id: 'post-submit' %>
+<% end %>
+
+<h2 class="all-posts-title"><%= @blog.name %> Posts</h2>
+<table class="table">
+  <% @blog.posts.each do |post| %>
+    <tr>
+      <td><%= post.title %></td>
+    </tr>
+  <% end %>
+</table>
+<script>
+
+  var toolbarOptions = [
+    [{'font': []}],
+    [{ 'header': [1,2,3,4,5,6,false] }],
+    [{ 'size': ['small', false, 'large', 'huge'] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{'color': []}, {'background': []}],
+    ['link', 'image', 'video', 'formula'],
+    [{'align': []}],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+    [{ 'indent': '-1' }, { 'indent': '+1' }],
+    ['blockquote', 'code-block'],
+    [{ 'script': 'sub' }, { 'script': 'super' }],
+    [{ 'direction': 'rtl' }]
+  ];
+
+  var options = {
+    modules: {
+      toolbar: toolbarOptions
+    },
+    placeholder: 'Write a story...',
+    theme: 'snow'
+  }
+
+  var quill = new Quill('#editor', options);
+  $('#post-submit').on('click', function(){
+    var content = $('#editor').find('.ql-editor').html();
+    $('#hidden-content').val(content);
+  });
+</script>

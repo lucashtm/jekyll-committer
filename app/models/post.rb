@@ -1,4 +1,7 @@
 class Post < ApplicationRecord
+
+  belongs_to :blog
+
   validates :title, presence: true
   validates :filename, presence: true, on: :update
   validates :commit_message, presence: true
@@ -6,6 +9,7 @@ class Post < ApplicationRecord
   before_validation :set_filename
   before_validation :set_commit_message
 
+  delegate :user, to: :blog
   def set_filename
     return if filename.present?
     self.filename = Jekyll::FilenameGenerator.new(title).call

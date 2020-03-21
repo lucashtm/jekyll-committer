@@ -1,0 +1,20 @@
+<h1>Your Blogs</h1>
+<%= link_to 'Create New Blog', new_blog_path, class: 'btn btn-primary' %>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Repository</th>
+      <th scope="col">Branch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% github_user.blogs.each do |blog| %>
+        <tr>
+          <td><%= link_to blog.name, blog_path(blog) %></td>
+          <td><%= blog.repo %></td>
+          <td><%= blog.branch %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

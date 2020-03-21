@@ -3,43 +3,41 @@ module Github
 
     delegate_missing_to :client
 
-    def initialize(repo, branch, oauth_token: nil)
-      @repo = repo
-      @branch = branch
-      @oauth_token = oauth_token
+    def initialize(blog, user)
+      @blog = blog
+      @user = user
     end
 
     def ref
-      client.ref(repo, "heads/#{branch}")
+      client.ref(blog.repo, "heads/#{blog.branch}")
     end
 
     def commit(sha)
-      client.commit(repo, sha)
+      client.commit(blog.repo, sha)
     end
 
     def create_blob(content, encoding)
-      client.create_blob(repo, content, encoding)
+      client.create_blob(blog.repo, content, encoding)
     end
 
     def create_tree(tree, base_tree:)
-      client.create_tree(repo, tree, base_tree: base_tree)
+      client.create_tree(blog.repo, tree, base_tree: base_tree)
     end
 
     def create_commit(message, parents, tree)
-      client.create_commit(repo, message, tree, [parents])
+      client.create_commit(blog.repo, message, tree, [parents])
     end
 
     def update_ref(sha)
-      client.update_ref(repo, "heads/#{branch}", sha)
+      client.update_ref(blog.repo, "heads/#{blog.branch}", sha)
     end
 
     private
 
-    attr_reader :repo, :branch, :oauth_token
+    attr_reader :blog, :user
 
     def client
-      return @client ||= Octokit::Client.new(access_token: oauth_token) if oauth_token.present?
-      @client ||= Octokit::Client.new
+      @client ||= Octokit::Client.new(access_token: user.oauth_token)
     end
   end
 end
