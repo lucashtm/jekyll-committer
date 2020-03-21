@@ -27,7 +27,7 @@ module Github
 
     def tree_attrs
       [{
-        'path': 'aaa.txt',
+        'path': path,
         'mode': mode,
         'type': type,
         'sha': blob_sha

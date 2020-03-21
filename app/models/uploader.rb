@@ -8,6 +8,7 @@ class Uploader
     blob.create!
     tree.create!
     commit.create!
+    set_head
     post.update(commit_sha: commit.sha)
   end
 
@@ -20,14 +21,18 @@ class Uploader
   end
 
   def blob
-    @branch_head ||= Github::Blob.new(post.content, client)
+    @blob ||= Github::Blob.new(post.content, client)
   end
 
   def tree
-    @branch_head ||= Github::Tree.new(post.filename, blob.sha, client, base_tree: branch_head.tree_sha)
+    @tree ||= Github::Tree.new(post.filename, blob.sha, client, base_tree: branch_head.tree_sha)
   end
 
   def commit
-    @branch_head ||= Github::Commit.new(post.commit_message, tree.sha, branch_head.sha, client)
+    @commit ||= Github::Commit.new(post.commit_message, branch_head.sha, tree.sha, client)
+  end
+
+  def set_head
+    client.update_ref(commit.sha)
   end
 end

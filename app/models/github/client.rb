@@ -26,6 +26,10 @@ module Github
       client.create_commit(repo, message, tree, [parents])
     end
 
+    def update_ref(sha)
+      client.update_ref(repo, "heads/#{branch}", sha)
+    end
+
     private
 
     attr_reader :repo, :branch, :oauth_token
