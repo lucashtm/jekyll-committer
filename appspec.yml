@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /dev/shm/odin
+    destination: /dev/shm/jekyll-commiter
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies
