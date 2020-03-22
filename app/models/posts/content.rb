@@ -26,7 +26,8 @@ module Posts
     def header_params
       {
         layout: 'post',
-        title: title
+        title: title,
+        date: Time.current.to_s
       }
     end
   end
